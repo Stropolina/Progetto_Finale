@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration</title>
+    <link href="../css/output.css" rel="stylesheet" />
+    <script src="../js/restClient.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/tagsBuilder.js"></script>
+</head>
+
+<body class="h-full">
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <img class="mx-auto h-28 w-auto" src="../img/fizook-logo.webp" alt="Your Company">
+      <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registra un nuovo account</h2>
+    </div>
+  
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+      <div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+        <form class="space-y-2" action="#" method="POST">
+          <div>
+              <label for="type" class="block text-sm font-medium leading-6 text-gray-900">Che tipo di utente sei?</label>
+              <select onchange="javascript:populateClasses()" id="type" name="type" class="mt-2 block w-full rounded-md border-0 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-pink-600 sm:text-sm sm:leading-6">
+                <option></option>
+                <option value="Student">Studente</option>
+                <option value="Teacher">Insegnante</option>
+                <option value="Technician">Tecnico</option>
+                <option value="Accounting">Segreteria</option>
+              </select>
+          </div>
+
+          <div id="classes-container" class="pt-4 hidden">
+            <label for="class" class="block text-sm font-medium leading-6 text-gray-900">Che classe frequenti?</label>
+            <select id="classes" class="mt-2 block w-full rounded-md border-0 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-pink-600 sm:text-sm sm:leading-6"></select>
+          </div>
+        </form>
+  
+        <div class="px-6 py-4 sm:px-12">
+          <div>
+            <p class="text-center text-sm text-gray-500">
+              Utilizza il tuo account di google dell'Istituto
+            </p>
+          </div>
+  
+          <div class="mt-6 items-center">
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+            <div id="g_id_onload"
+              data-client_id="506695090182-64evsmamrs4fh1pcpgebdsvdbplfd8pr.apps.googleusercontent.com"
+              data-context="signin"
+              data-ux_mode="popup"
+              data-callback="onSignIn"
+              data-auto_prompt="false">
+            </div>
+  
+            <div class="items-center place-items-center place-content-center">
+              <div class="g_id_signin"
+                data-type="standard"
+                data-shape="pill"
+                data-theme="outline"
+                data-text="signin_with"
+                data-size="large"
+                data-locale="it"
+                data-logo_alignment="left">
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="../js/model/registration.js"></script>
+<script>
+  async function onSignIn(googleUser) {
+    const type = document.getElementById('type');
+    const classes = document.getElementById('classes');
+    var userType = type.options[type.selectedIndex].value;
+    var classId = classes.options[classes.selectedIndex].value;
+    var credential = googleUser.credential;
+    var registration = new Registration(credential, userType, classId);
+
+    const client = new RestClient(baseUrl);
+    try {
+      const response = await client.post('/registration', JSON.stringify(registration));
+
+      if(response.hasError == false && response.result == true){
+        window.location.replace('./login.html');
+      } else {
+        window.alert('Registrazione fallita. Ritenta');
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  }
+
+  async function populateClasses() {
+    let body = document.getElementById("classes-container");
+    let select = document.getElementById('classes');
+    let type = document.getElementById("type");
+    var userType = type.options[type.selectedIndex].value;
+
+    if (userType == "Student") {
+      body.classList.remove('hidden');
+      var count = 1;
+
+      let option = document.createElement('option');
+      select.appendChild(option);
+
+      var client = new RestClient(baseUrl);
+      const response = await client.get('/classes');
+      classrooms = response.result;
+
+      classrooms.forEach(classroom => {
+        let option = document.createElement('option');
+        option.setAttribute("value", count);
+        option.innerHTML = classroom.Name;
+        select.appendChild(option);
+
+        count++;
+      });
+    } else {
+      select.innerHTML = "";
+      body.classList.add('hidden');
+    }
+  }
+</script>
+
+</html>

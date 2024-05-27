@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-white">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Activity</title>
+    <link href="../css/output.css" rel="stylesheet" />
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/restClient.js"></script>
+    <script src="../js/sessionManager.js"></script>
+    <script src="../js/tagsBuilder.js"></script>
+    <script src="../js/activitiesBehaviours.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/model/activity.js"></script>
+    <script src="../js/cookiesBehaviours.js"></script>
+</head>
+
+<body class="h-full" onload="preparePage();">
+    <div>
+        <!-- MOBILE MENU -->
+        <div class="relative z-50 lg:hidden hidden" id="mobile-menu" role="dialog" aria-modal="true">
+
+            <div class="fixed inset-0 flex mt-16">
+                <div class="relative mr-16 flex w-full max-w-xs flex-1">
+                    <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r bg-white px-6 pb-4 pt-4">
+                        <nav class="flex flex-1 flex-col">
+                            <ul role="list" class="flex flex-1 flex-col gap-y-7">
+                                <li>
+                                    <ul role="list" class="-mx-2 space-y-1">
+                                        <li>
+                                            <a href="../index.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="w-6 h-6 shrink-0 text-gray-400 group-hover:text-pink-600">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                                </svg>
+                                                Dashboard
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./timetable.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                                </svg>
+                                                Orario
+                                            </a>
+                                        </li>
+                                        <li data-permission="premium-permission">
+                                            <a href="./booking.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="w-6 h-6 shrink-0 text-gray-400 group-hover:text-pink-600">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                </svg>
+                                                Prenotazioni
+                                            </a>
+                                        </li>
+                                        <li data-permission="admin-permission">
+                                            <div class="text-xs font-semibold leading-6 text-gray-400 px-2 pt-4">Back Office</div>
+                                            <ul role="list" class="-mx-2 mt-2 space-y-1 px-2">
+                                                <li>
+                                                    <a href="#"
+                                                        class="bg-gray-50 text-pink-600 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold" >
+                                                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="w-6 h-6 shrink-0 text-pink-600">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
+                                                        </svg>
+                                                        Attività
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="./class.html"
+                                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                                                        </svg>
+                                                        Classi
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="./dayoff.html"
+                                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                                                        </svg>
+                                                        Days Off
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="./permission.html"
+                                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                                        </svg>
+                                                        Permessi
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="./role.html"
+                                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                        </svg>
+                                                        Ruoli
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="./room.html"
+                                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                                        </svg>
+                                                        Stanze
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="./subject.html"
+                                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                                                        </svg>
+                                                        Materie
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="./user.html"
+                                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                                        </svg>
+                                                        Utenti
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESKTOP MENU -->
+        <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+            <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4 pt-4">
+                <div class="flex h-20 shrink-0 items-center">
+                    <img class="h-20 w-auto" src="../img/fizook-logo.webp" alt="FiZooK" />
+                    <p class="ml-4 text-black font-bold">FiZooK</p>
+                </div>
+                <nav class="flex flex-1 flex-col">
+                    <ul role="list" class="flex flex-1 flex-col gap-y-7">
+                        <li>
+                            <ul role="list" class="-mx-2 space-y-1">
+                                <li>
+                                    <a href="../index.html"
+                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="w-6 h-6 shrink-0 text-gray-400 group-hover:text-pink-600">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                        </svg>
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="./timetable.html"
+                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                        <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                        </svg>
+                                        Orario
+                                    </a>
+                                </li>
+                                <li data-permission="premium-permission">
+                                    <a href="./booking.html"
+                                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="w-6 h-6 shrink-0 text-gray-400 group-hover:text-pink-600">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                        </svg>
+                                        Prenotazioni
+                                    </a>
+                                </li>
+                                <li data-permission="admin-permission">
+                                    <div class="text-xs font-semibold leading-6 text-gray-400 px-2 pt-4"> Back Office </div>
+                                    <ul role="list" class="-mx-2 mt-2 space-y-1 px-2">
+                                        <li>
+                                            <a href="#"
+                                                class="bg-gray-50 text-pink-600 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="w-6 h-6 shrink-0 text-pink-600">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
+                                                </svg>
+                                                Attività
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./class.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                                                </svg>
+                                                Classi
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./dayoff.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                                                </svg>
+                                                Days Off
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./permission.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                                </svg>
+                                                Permessi
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./role.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                </svg>
+                                                Ruoli
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./room.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                                </svg>
+                                                Stanze
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./subject.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                                                </svg>
+                                                Materie
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="./user.html"
+                                                class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <svg class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                                </svg>
+                                                Utenti
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="lg:pl-72">
+            <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+                <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden" id="sidebar-button-open">
+                    <span class="sr-only">Open sidebar</span>
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+
+                <div class="flex h-16 shrink-0 items-center lg:hidden">
+                    <img class="h-14 w-auto" src="../img/fizook-logo.webp" alt="FiZooK" />
+                    <p class="ml-2 text-black font-bold">FiZooK</p>
+                </div>
+
+                <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
+
+                <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+                    <form class="relative flex flex-1" action="javascript:search('search-field', './search.html');" method="GET">
+                        <label for="search-field" class="sr-only">Ricerca</label>
+                        <svg class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
+                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <input id="search-field"
+                            class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                            placeholder="Ricerca..." type="search" name="search" />
+                    </form>
+
+                    <div class="flex items-center gap-x-4 lg:gap-x-6">
+                        <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" aria-hidden="true"></div>
+
+                        <!-- DROPDOWN PROFILE -->
+                        <div class="relative">
+                            <button type="button" class="-m-1.5 flex items-center p-1.5" id="user-menu-button"
+                                aria-expanded="false" aria-haspopup="true">
+                                <span class="sr-only">Open user menu</span>
+                                <span id="currentUserPicture"></span>
+                                <span class="hidden lg:flex lg:items-center">
+                                    <span id="currentUserName" class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true"></span>
+                                    <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                                        aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+                            </button>
+
+                            <div class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none hidden"
+                                role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" id="user-menu" tabindex="-1">
+                                <a href="./profile.html" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-0">Il tuo profilo</a>
+                                <a href="javascript:logout();" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-1">Esci</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <main class="grid min-h-full bg-white px-6 py-4 sm:py-4 lg:px-8">
+                <div class="px-4 sm:px-6 lg:px-4 w-full">
+                    <div class="py-4 sm:flex sm:items-center">
+                        <div class="sm:flex-auto">
+                            <h1 class="text-base font-semibold leading-6 xl:text-3xl text-gray-900">Attività</h1>
+                            <p class="mt-2 text-sm xl:text-base text-gray-700">Lista delle attività che offre l'Istituto.</p>
+                        </div>
+                        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                            <button id="new-item-button" onclick="startDialog(JSON.stringify(new Activity()), 'activity-dialog', 'activity-title', 'create', '')" type="button" class="block rounded-md bg-pink-600 px-3 py-2 text-center text-sm xl:text-base font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600">Aggiungi attvità</button>
+                        </div>
+                    </div>
+
+                    <!-- DESKTOP TABLE-->
+                    <div id="activities-table" class="hidden lg:mt-8 lg:flow-root">
+                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                                    <table class="min-w-full divide-y divide-gray-300">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3.5 pr-4 text-left text-sm font-semibold text-gray-900">Id</th>
+                                                <th scope="col" class="px-6 py-3.5 text-left text-sm font-semibold text-gray-900">Nome</th>
+                                                <th scope="col" class="relative py-3.5 w-10 pr-4 sm:pr-6">
+                                                    <span class="sr-only"></span>
+                                                </th>
+                                                <th scope="col" class="relative py-3.5 w-10 pr-4 sm:pr-6">
+                                                    <span class="sr-only"></span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="activities-table-body" class="divide-y divide-gray-200 bg-white"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MOBILE TABLE-->
+                    <ul  id="activities-grid-list" role="list" class="lg:hidden grid sm:grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2"></ul>
+                </div>
+            </main>
+        </div>
+
+        <!--DIALOG DELETE-->
+        <div id="delete-activity-dialog" class="z-50 fixed inset-0 justify-center items-center hidden">
+            <div class="fixed inset-0 bg-gray-300 bg-opacity-85 transition-opacity"></div>
+            
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-pink-600" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                </svg> 
+                            </div>
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Eliminazione attività</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500">Sei sicuro di voler eliminare l'attività <span id="delete-activity-name" class="font-bold"></span>? Il dato sarà permanentemente rimosso. Non si potrà tornare indietro.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button onclick="deleteItem('/activities', 'delete-activity-dialog', getActivities)" type="button" class="inline-flex w-full justify-center rounded-md bg-pink-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 sm:ml-3 sm:w-auto">Elimina</button>
+                        <button onclick="closeDialog('delete-activity-dialog')" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Annulla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--DIALOG UPDATE/ADD SUCCESS-->
+    <div id="activity-dialog" class="z-50 fixed inset-0 justify-center items-center hidden">
+        <div class="fixed inset-0 bg-gray-300 bg-opacity-85 transition-opacity"></div>
+        
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="grid grid-colum-2 sm:flex sm:items-start">
+                        <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-pink-600" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
+                            </svg>
+                        </div>
+                        <div class="w-full mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title"><span id="activity-title"></span> Attività</h3>
+                            <div>
+                                <p class="mt-1 text-sm leading-6 text-gray-600">Inserisci o modifica il valore delle proprietà.</p>
+            
+                                <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
+                                    <div class="col-span-full">
+                                        <label for="name-activity" class="block text-sm font-medium leading-6 text-gray-900">Nome</label>
+                                        <div class="mt-2">
+                                            <input type="hidden" id="id-activity" value=0/>
+                                            <input type="text" name="name-activity" id="name-activity" autocomplete="name-activity" placeholder="Nome dell'attività" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-600 sm:text-sm sm:leading-6">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button onclick="prepareForStore()" type="button" class="inline-flex w-full justify-center rounded-md bg-pink-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 sm:ml-3 sm:w-auto">Salva</button>
+                    <button onclick="closeDialog('activity-dialog')" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--SPINNER-->
+    <div id="spinner-container" class="z-50 fixed inset-0 justify-center items-center hidden">
+        <div class="bg-black bg-opacity-65 flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+                <svg class="w-24 h-24 text-gray-300 animate-spin" viewBox="0 0 64 64" fill="none" width="24" height="24">
+                    <path
+                        d="M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z"
+                        stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                    </path>
+                    <path
+                        d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
+                        stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="text-pink-600">
+                    </path>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+        <!-- COOKIE BANNER -->
+        <div id="cookie-banner" class="z-50 fixed inset-0 justify-center items-center hidden">
+            <div class="fixed inset-0 bg-gray-300 bg-opacity-85 transition-opacity"></div>
+            
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor" class="w-12 h-12 text-pink-600" aria-hidden="true">
+                                    <path fill="currentColor" d="M12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12q0-1.875.725-3.675T4.75 5.112t3.125-2.275t4-.862q.525 0 1.075.05t1.125.175q-.225 1.125.15 2.125t1.125 1.662t1.788.913t2.137-.125q-.65 1.475.188 2.825T21.95 11q.025.275.038.512t.012.513q0 2.05-.788 3.862t-2.137 3.175t-3.175 2.15T12 22m-1.5-12q.625 0 1.063-.437T12 8.5t-.437-1.062T10.5 7t-1.062.438T9 8.5t.438 1.063T10.5 10m-2 5q.625 0 1.063-.437T10 13.5t-.437-1.062T8.5 12t-1.062.438T7 13.5t.438 1.063T8.5 15m6.5 1q.425 0 .713-.288T16 15t-.288-.712T15 14t-.712.288T14 15t.288.713T15 16m-3 4q3.05 0 5.413-2.1T20 12.55q-1.25-.55-1.963-1.5t-.962-2.125q-1.925-.275-3.3-1.65t-1.7-3.3q-2-.05-3.512.725T6.037 6.688T4.512 9.325T4 12q0 3.325 2.338 5.663T12 20m0-8.1"/>
+                                </svg>
+                            </div>
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-lg font-semibold leading-6 text-gray-900" id="modal-title">Cookie</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500">
+                                        FiZooK utilizza i cookie per migliorare l'esperienza dell'utente sul sito Web, ad esempio tramite connessioni a provider di autenticazione (Google OAuth). <br><br>
+                                        Qualora l'utente rifiuti i cookie, non sarà possibile accedere alle funzionalità del sito.
+                                        <a target="_blank" href="./privacy.html" class="text-pink-600">Informativa sulla privacy</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button onclick="acceptCookies('cookie-banner')" type="button" class="inline-flex w-full justify-center rounded-md bg-pink-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 sm:ml-3 sm:w-auto">Accetta</button>
+                        <button onclick="declineCookies('cookie-banner', './cookieDenied.html')" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Rifiuta</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</body>
+
+<script>
+    function preparePage() {
+        checkAuthentication('./login.html');
+        checkPagePermission("admin-permission", "../index.html");
+        checkPermission();
+        getActivities();
+        checkCookie('cookie-banner');
+    }
+</script>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-white">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Profile</title>
+    <link href="../css/output.css" rel="stylesheet" />
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/sessionManager.js"></script>
+    <script src="../js/profileBehaviours.js"></script>
+    <script src="../js/tagsBuilder.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/cookiesBehaviours.js"></script>
+</head>
+
+<body class="h-full" onload="preparePage();">
+    <div>
+        <div>
+            <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+                <button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden" id="sidebar-button-open"></button>
+
+                <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+                    <div class="flex flex-1 items-center">
+                        <img class="h-14 w-auto" src="../img/fizook-logo.webp" alt="FiZooK" />
+                        <p class="ml-4 text-black font-bold">FiZooK</p>
+                    </div>
+
+                    <div class="flex items-center gap-x-4 lg:gap-x-6">
+                        <div class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" aria-hidden="true"></div>
+
+                        <!-- DROPDOWN PROFILE -->
+                        <div class="relative">
+                            <button type="button" class="-m-1.5 flex items-center p-1.5" id="user-menu-button"
+                                aria-expanded="false" aria-haspopup="true">
+                                <span class="sr-only">Open user menu</span>
+                                <span id="currentUserPicture"></span>
+                                <span class="hidden lg:flex lg:items-center">
+                                    <span id="currentUserName" class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true"></span>
+                                    <svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                                        aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+                            </button>
+
+                            <div class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none hidden"
+                                role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" id="user-menu" tabindex="-1">
+                                <a href="javascript:logout();" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem"
+                                    tabindex="-1" id="user-menu-item-1">Esci</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <main class="grid min-h-full bg-white px-6 py-4 sm:py-4 lg:px-8">
+                <div class="flex justify-start items-start">
+                    <a href="../index.html"
+                        class="text-gray-700 hover:text-pink-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-pink-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>  
+                        Torna all'applicazione
+                    </a>
+                </div>
+
+                <div id="profile-details" class="h-full w-full items-start justify-center pt-4"></div>
+
+                <!-- <div>
+                  <h2 class="text-sm font-medium text-gray-500">Materie <span id="type-subject"></span></h2>
+                  <ul id="profile-table" role="list" class="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+                    <li class="col-span-1 flex rounded-md shadow-sm">
+                      <div class="p-2 border border-gray-200 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md text-base font-medium text-gray-900">5IA</div>
+                      <div class="p-2 flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-gray-200 bg-white">
+                        <div class="flex-1 truncate px-4 py-2 text-sm">
+                          <p class="text-base font-medium text-gray-900">Matematica</p>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col-span-1 flex rounded-md shadow-sm">
+                      <div class="border border-gray-200 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md text-base font-medium text-gray-900">5IA</div>
+                      <div class="flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-gray-200 bg-white">
+                        <div class="flex-1 truncate px-4 py-2 text-sm">
+                          <p class="text-base font-medium text-gray-900">Matematica</p>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col-span-1 flex rounded-md shadow-sm">
+                      <div class="border border-gray-200 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md text-base font-medium text-gray-900">5IA</div>
+                      <div class="flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-gray-200 bg-white">
+                        <div class="flex-1 truncate px-4 py-2 text-sm">
+                          <p class="text-base font-medium text-gray-900">Matematica</p>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col-span-1 flex rounded-md shadow-sm">
+                      <div class="border border-gray-200 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md text-base font-medium text-gray-900">5IA</div>
+                      <div class="flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-gray-200 bg-white">
+                        <div class="flex-1 truncate px-4 py-2 text-sm">
+                          <p class="text-base font-medium text-gray-900">Matematica</p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div> -->                                 
+            </main>
+        </div>
+
+        <!--SPINNER-->
+        <div id="spinner-container" class="z-50 fixed inset-0 justify-center items-center hidden">
+            <div class="bg-black bg-opacity-65 flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+                    <svg class="w-24 h-24 text-gray-300 animate-spin" viewBox="0 0 64 64" fill="none" width="24" height="24">
+                        <path
+                            d="M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z"
+                            stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                        </path>
+                        <path
+                            d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
+                            stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="text-pink-600">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- COOKIE BANNER -->
+        <div id="cookie-banner" class="z-50 fixed inset-0 justify-center items-center hidden">
+            <div class="fixed inset-0 bg-gray-300 bg-opacity-85 transition-opacity"></div>
+            
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentColor" class="w-12 h-12 text-pink-600" aria-hidden="true">
+                                    <path fill="currentColor" d="M12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12q0-1.875.725-3.675T4.75 5.112t3.125-2.275t4-.862q.525 0 1.075.05t1.125.175q-.225 1.125.15 2.125t1.125 1.662t1.788.913t2.137-.125q-.65 1.475.188 2.825T21.95 11q.025.275.038.512t.012.513q0 2.05-.788 3.862t-2.137 3.175t-3.175 2.15T12 22m-1.5-12q.625 0 1.063-.437T12 8.5t-.437-1.062T10.5 7t-1.062.438T9 8.5t.438 1.063T10.5 10m-2 5q.625 0 1.063-.437T10 13.5t-.437-1.062T8.5 12t-1.062.438T7 13.5t.438 1.063T8.5 15m6.5 1q.425 0 .713-.288T16 15t-.288-.712T15 14t-.712.288T14 15t.288.713T15 16m-3 4q3.05 0 5.413-2.1T20 12.55q-1.25-.55-1.963-1.5t-.962-2.125q-1.925-.275-3.3-1.65t-1.7-3.3q-2-.05-3.512.725T6.037 6.688T4.512 9.325T4 12q0 3.325 2.338 5.663T12 20m0-8.1"/>
+                                </svg>
+                            </div>
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-lg font-semibold leading-6 text-gray-900" id="modal-title">Cookie</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500">
+                                        FiZooK utilizza i cookie per migliorare l'esperienza dell'utente sul sito Web, ad esempio tramite connessioni a provider di autenticazione (Google OAuth). <br><br>
+                                        Qualora l'utente rifiuti i cookie, non sarà possibile accedere alle funzionalità del sito.
+                                        <a target="_blank" href="./privacy.html" class="text-pink-600">Informativa sulla privacy</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button onclick="acceptCookies('cookie-banner')" type="button" class="inline-flex w-full justify-center rounded-md bg-pink-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 sm:ml-3 sm:w-auto">Accetta</button>
+                        <button onclick="declineCookies('cookie-banner', './cookieDenied.html')" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Rifiuta</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</body>
+
+<script>
+    function preparePage() {
+        checkAuthentication('./login.html');
+        getProfile();
+        checkCookie('cookie-banner');
+    }
+</script>
+</html>

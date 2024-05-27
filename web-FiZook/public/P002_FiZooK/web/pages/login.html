@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link href="../css/output.css" rel="stylesheet" />
+  <script src="../js/restClient.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/sessionManager.js"></script>
+</head>
+
+<body class="h-full">
+  <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <img class="mx-auto h-32 w-auto" src="../img/fizook-logo.webp" alt="Your Company">
+      <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Accedi a FiZooK</h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+      <div class="bg-white px-6 py-6 shadow sm:rounded-lg sm:px-12">
+        <div>
+          <p class="text-center text-sm text-gray-500">
+            Utilizza il tuo account di google dell'Istituto
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-4 justify-center">
+          <script src="https://accounts.google.com/gsi/client" async defer></script>
+          <div id="g_id_onload"
+            data-client_id="506695090182-64evsmamrs4fh1pcpgebdsvdbplfd8pr.apps.googleusercontent.com"
+            data-context="signin"
+            data-ux_mode="popup"
+            data-callback="onSignIn"
+            data-auto_prompt="false">
+          </div>
+
+          <div class="g_id_signin"
+            data-type="standard"
+            data-shape="pill"
+            data-theme="outline"
+            data-text="signin_with"
+            data-size="large"
+            data-locale="it"
+            data-logo_alignment="left">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-10 text-center text-sm text-gray-500">
+      Non ti sei ancora registrato?
+      <a href="./registration.html" class="font-semibold leading-6 text-pink-600 hover:text-pink-500">Clicca qui</a>
+    </p>
+  </div>
+  </div>
+
+</body>
+
+<script>
+  async function onSignIn(googleUser) {
+    var credential = googleUser.credential;
+    const client = new RestClient(baseUrl);
+    try {
+      const response = await client.post('/login', JSON.stringify(credential));
+      if(response.hasError == false){
+        setSession("authBag", response.result);
+        window.location.replace('../index.html');
+      } else {
+        window.alert('Il tuo utente non risulta ancora registrato. Procedere alla registrazione');
+        window.location.replace('./registration.html');
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+}
+</script>
+
+</html>

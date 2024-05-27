@@ -1,0 +1,146 @@
+function buildDaysOffTable(daysoff) {
+    const body = document.querySelector('#daysoff-table-body');
+    body.innerHTML = "";
+
+    daysoff.map(function (dayoff) {
+        let tr = document.createElement('tr');
+        
+        tr.appendChild(createCell("whitespace-nowrap px-6 py-4 text-sm text-gray-500", `${dayoff.Id}`));
+        tr.appendChild(createCell("whitespace-nowrap px-6 py-4 text-sm text-gray-500", `${dayoff.Name}`));
+        tr.appendChild(createCell("whitespace-nowrap px-6 py-4 text-sm text-gray-500", `${dayoff.From}`));
+        tr.appendChild(createCell("whitespace-nowrap px-6 py-4 text-sm text-gray-500", `${dayoff.To}`));
+
+        var linkId = `${dayoff.Id}`;
+        var entity = JSON.stringify(dayoff);
+
+        var aEdit = createLink(linkId, "modal-open-update text-pink-600 hover:text-pink-500", "javascript:openDialog(" + entity + ", 'dayoff-dialog', 'dayoff-title', 'update', '');", 
+                                    `<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                    </svg>`);
+        tr.appendChild(createLinkCell("whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6", aEdit));
+
+        var aDelete = createLink(linkId, "modal-open text-pink-600 hover:text-pink-500", "javascript:openDialog(" + entity + ", 'delete-dayoff-dialog', 'delete-dayoff-name', 'delete', 'name');", 
+                                    `<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                    </svg>`)
+        tr.appendChild(createLinkCell("whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6", aDelete));
+
+        body.appendChild(tr);
+    });
+
+}
+
+function buildDaysOffGridList(daysoff) {
+    const body = document.querySelector('#daysoff-grid-list');
+    body.innerHTML = "";
+
+    daysoff.map(function (dayoff) {
+        let li = document.createElement('li');
+        li.classList = "overflow-hidden rounded-xl border border-gray-200";
+
+        let dl = createDescriptionList("-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6");
+
+        let dtId = createTermList("rounded-xl py-1 px-2 text-xs font-medium ring-inset text-pink-700 bg-pink-50", `${dayoff.Id}`);
+        
+        var linkId = `${dayoff.Id}`;
+        var entity = JSON.stringify(dayoff);
+
+        let divActions = createDivision("flex items-center justify-center gap-x-2");
+        let aEdit = createLink(linkId, "modal-open-update text-pink-600 hover:text-pink-500", "javascript:openDialog(" + entity + ", 'dayoff-dialog', 'dayoff-title', 'update', '');", 
+                                    `<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                    </svg>`);
+        divActions.appendChild(aEdit);
+
+        let aDelete = createLink(linkId, "modal-open text-pink-600 hover:text-pink-500", "javascript:openDialog(" + entity + ", 'delete-dayoff-dialog', 'delete-dayoff-name', 'delete', 'name');", 
+                                    `<svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                    </svg>`);
+        divActions.appendChild(aDelete);
+        
+        let divId = createDivision("flex py-3 justify-between");
+        divId.appendChild(dtId);
+        divId.appendChild(divActions);
+        dl.appendChild(divId);
+
+        let dtName = createTermList("text-sm text-gray-500", `${dayoff.Name}`);
+        let divContent = createDivision("flex justify-between gap-x-4 py-3");
+        divContent.appendChild(dtName);
+
+        let fromDateTime = "Dal: " + `${dayoff.From}`;
+        let dtFromDateTime = createTermList("text-sm text-gray-500", fromDateTime);
+        let divFromDateTime = createDivision("flex justify-between gap-x-4 py-3");
+        divFromDateTime.appendChild(dtFromDateTime);
+
+        let toDateTime = "Al: " + `${dayoff.To}`;
+        let dtToDateTime = createTermList("text-sm text-gray-500", toDateTime);
+        let divToDateTime = createDivision("flex justify-between gap-x-4 py-3");
+        divToDateTime.appendChild(dtToDateTime);
+        
+        dl.appendChild(divContent);
+        dl.appendChild(divFromDateTime);
+        dl.appendChild(divToDateTime);
+
+        li.appendChild(dl);
+
+        body.appendChild(li);
+    });
+}
+
+async function getDaysOff() {
+    startStopSpinner();
+    var client = new RestClient(baseUrl);
+
+        try { 
+            const daysoffTable = document.querySelector('#daysoff-table');
+            const response = await client.get('/daysoff');
+            daysoff = response.result;
+
+            if (window.screen.width >= 1024) {
+                buildDaysOffTable(daysoff);
+            } else {
+                buildDaysOffGridList(daysoff);
+            }
+
+            dialogEventsRegistration("delete-dayoff-dialog", ".modal-open");
+            dialogEventsRegistration("dayoff-dialog", ".modal-open-update");
+        } catch (error) {
+            console.error("Error fetching days off:", error);
+        }
+
+    startStopSpinner();
+}
+
+function prepareUpdate(item) {
+    const idInput = document.getElementById('id-dayoff');
+    idInput.value = item.Id != undefined ? item.Id : 0; 
+
+    const nameInput = document.getElementById('name-dayoff');
+    nameInput.value = item.Name != undefined ? item.Name : ""; 
+
+    const fromInput = document.getElementById('start-date');
+    fromInput.value = item.From != undefined ? parseFromJsonDate(item.From) : ""; 
+
+    const toInput = document.getElementById('end-date');
+    toInput.value = item.To != undefined ? parseFromJsonDate(item.To) : "";
+}
+
+function prepareForStore() {
+    let nameInput = document.getElementById('name-dayoff');
+    let idInput = document.getElementById('id-dayoff');
+    let fromInput = document.getElementById('start-date');
+    let toInput = document.getElementById('end-date');
+
+    if (validateInputs([nameInput, idInput, fromInput, toInput])) {
+        var dayoff = new DayOff();
+
+        dayoff.name = nameInput.value.trim();
+        dayoff.id = idInput.value.trim();
+        dayoff.from = new Date(parseCustomDate(fromInput.value));
+        dayoff.to = new Date(parseCustomDate(toInput.value));
+
+        persistItem("/daysoff", "dayoff-dialog", dayoff, getDaysOff);
+    } else {
+        window.alert("Dati obbligatori mancanti");
+    }
+}
