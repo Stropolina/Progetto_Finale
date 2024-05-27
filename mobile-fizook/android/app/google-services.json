@@ -1,0 +1,178 @@
+{
+  "project_info": {
+    "project_number": "506695090182",
+    "project_id": "zuccante-app-5ia-2023-2024",
+    "storage_bucket": "zuccante-app-5ia-2023-2024.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506695090182:android:dd5237e449c7908997c387",
+        "android_client_info": {
+          "package_name": "com.example.fizook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506695090182-6vbt347a45b6uvf4aert0e7skr6g84d0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0_p27h1wXGAKbqsif8qOJSJCyQk3Js48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506695090182-018b2s3r0dqbfb6vlufruakaf7498eoh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "506695090182-3mndlqlfng44gjuvqum903sd41uv2sdu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fizook.auth"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506695090182:android:7d6dbeefc14a74fe97c387",
+        "android_client_info": {
+          "package_name": "com.example.helpdesk1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506695090182-pmc2fas4m7d7slqujrcsbdokoialne0j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.helpdesk1",
+            "certificate_hash": "ac4d66de63012d1d6155cdc67ebcdbbcd17ff383"
+          }
+        },
+        {
+          "client_id": "506695090182-6vbt347a45b6uvf4aert0e7skr6g84d0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0_p27h1wXGAKbqsif8qOJSJCyQk3Js48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506695090182-018b2s3r0dqbfb6vlufruakaf7498eoh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "506695090182-3mndlqlfng44gjuvqum903sd41uv2sdu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fizook.auth"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506695090182:android:90efcfed4c52001d97c387",
+        "android_client_info": {
+          "package_name": "com.example.helpdesk_mp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506695090182-ablni0s64d8ato1c66r92p9cet3bbf33.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.helpdesk_mp",
+            "certificate_hash": "ac4d66de63012d1d6155cdc67ebcdbbcd17ff383"
+          }
+        },
+        {
+          "client_id": "506695090182-6vbt347a45b6uvf4aert0e7skr6g84d0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0_p27h1wXGAKbqsif8qOJSJCyQk3Js48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506695090182-018b2s3r0dqbfb6vlufruakaf7498eoh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "506695090182-3mndlqlfng44gjuvqum903sd41uv2sdu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fizook.auth"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506695090182:android:b993e5059db0d43c97c387",
+        "android_client_info": {
+          "package_name": "com.example.helpdesk_mp1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506695090182-sboectp1imq1qmp4le68p5al4r4mr5us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.helpdesk_mp1",
+            "certificate_hash": "2c16638a92d5e126f73cb51769c08d69ae1debe9"
+          }
+        },
+        {
+          "client_id": "506695090182-6vbt347a45b6uvf4aert0e7skr6g84d0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0_p27h1wXGAKbqsif8qOJSJCyQk3Js48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506695090182-018b2s3r0dqbfb6vlufruakaf7498eoh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "506695090182-3mndlqlfng44gjuvqum903sd41uv2sdu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fizook.auth"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

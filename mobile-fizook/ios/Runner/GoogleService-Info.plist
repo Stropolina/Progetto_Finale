@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>506695090182-3mndlqlfng44gjuvqum903sd41uv2sdu.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.506695090182-3mndlqlfng44gjuvqum903sd41uv2sdu</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>506695090182-ablni0s64d8ato1c66r92p9cet3bbf33.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAFdQ_Y0_5VfrcR9JxMw5XeCSwebA_Q7-o</string>
+	<key>GCM_SENDER_ID</key>
+	<string>506695090182</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>fizook.auth</string>
+	<key>PROJECT_ID</key>
+	<string>zuccante-app-5ia-2023-2024</string>
+	<key>STORAGE_BUCKET</key>
+	<string>zuccante-app-5ia-2023-2024.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:506695090182:ios:3d678418342ee0cb97c387</string>
+</dict>
+</plist>

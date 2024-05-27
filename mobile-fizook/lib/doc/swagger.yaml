@@ -1,0 +1,1226 @@
+openapi: 3.0.3
+info:
+  title: FiZooK - API
+  description: |-
+    This is the server of my project, FiZooK based on the OpenAPI 3.0 specification.
+  version: 1.0.11
+  
+servers:
+  - url: https://localhost/P002_FiZooK/services/fizook_api.yml
+tags:
+  - name: Activity
+    description: Activity provided by the school
+  - name: Booking
+    description: Booking from the school
+  - name: Class
+    description: Classes in the school
+  - name: Room
+    description: Rooms of the school
+  - name: Subject
+    description: Subjects teach in the school
+  - name: User
+    description: Users in the school
+paths:
+  /activities/{id}:
+    get:
+      tags:
+        - Activity
+      summary: Find the specific activity for that id
+      description: Allows you to view all information regarding this specific activity
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific activity
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Activity not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Activity
+      summary: Delete the specific activity
+      description: Allows you to delete the specific activity
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific activity
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Activity not found
+        '500':
+          description: Internal server error
+          
+  /activities:
+    get:
+      tags:
+        - Activity
+      summary: Find all activities
+      description: Allows you to view all information regarding all activities
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+        '404':
+          description: Activities not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Activity
+      summary: Create a new activity
+      description: Allows you to create a new activity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activity'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Activity
+      summary: Update the specific activity
+      description:  Allows you to update the informations regarding this specific activity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activity'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '404':
+          description: Activity not found
+        '500':
+          description: Internal server error
+            
+  /bookings/{id}:
+    get:
+      tags:
+        - Booking
+      summary: Find the specific booking for that id
+      description: Allows you to view all information regarding this specific booking
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific booking
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Booking not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Booking
+      summary: Delete the specific booking
+      description: Allows you to delete the specific booking
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific booking
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Booking not found
+        '500':
+          description: Internal server error
+          
+        
+  /bookings/users/{userId}:
+    get:
+      tags:
+        - Booking
+      summary: Find all the bookings for that specific userId
+      description: Allows you to view all information regarding these specific bookings
+      parameters:
+        - name: userId
+          in: path
+          description: Id of the user
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ViewBooking'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Bookings not found
+        '500':
+          description: Internal server error
+        
+        
+  /bookings/users/{id}:
+    delete:
+      tags:
+        - Booking
+      summary: Delete the specific booking
+      description: Allows you to delete the specific booking
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific booking
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Booking not found
+        '500':
+          description: Internal server error
+        
+        
+  /bookings:
+    get:
+      tags:
+        - Booking
+      summary: Find all bookings
+      description: Allows you to view all information regarding all bookings
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+        '404':
+          description: Bookings not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Booking
+      summary: Create a new booking
+      description: Allows you to create a new booking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Booking
+      summary: Update the specific booking
+      description:  Allows you to update the informations regarding this specific booking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '404':
+          description: Booking not found
+        '500':
+          description: Internal server error
+
+
+  /bookings/users:
+    post:
+      tags:
+        - Booking
+      summary: Find all the bookings view
+      description: Allows you to find all the bookings view
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewBooking'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '500':
+          description: Internal server error
+
+
+  /timetables:
+    post:
+      tags:
+        - Booking
+      summary: Create a new booking and the relative userBooking
+      description: Allows you to create a new booking and the relative userBooking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '500':
+          description: Internal server error
+
+
+  /classes/{filter}:
+    get:
+      tags:
+        - Class
+      summary: Find the specific class for that name
+      description: Allows you to view all information regarding this specific class
+      parameters:
+        - name: filter
+          in: path
+          description: Name of the specific class
+          required: true
+          schema:
+            type : string
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Class'
+        '400':
+          description: Invalid name value
+        '404':
+          description: Class not found
+        '500':
+          description: Internal server error
+          
+  /classes/{id}:
+    get:
+      tags:
+        - Class
+      summary: Find the specific class for that id
+      description: Allows you to view all information regarding this specific class
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific class
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Class'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Class not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Class
+      summary: Delete the specific class
+      description: Allows you to delete the specific class
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific class
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Class not found
+        '500':
+          description: Internal server error
+  
+  /classes:
+    get:
+      tags:
+        - Class
+      summary: Find all classes
+      description: Allows you to view all information regarding all classes
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Class'
+        '404':
+          description: Classes not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Class
+      summary: Create a new class
+      description: Allows you to create a new class
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Class
+      summary: Update the specific class
+      description:  Allows you to update the informations regarding this specific class
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '404':
+          description: Class not found
+        '500':
+          description: Internal server error
+  
+  
+  /rooms/room/{code}:
+    get:
+      tags:
+        - Room
+      summary: Find the specific room for that code
+      description: Allows you to view all information regarding this specific room
+      parameters:
+        - name: code
+          in: path
+          description: Code of the specific room
+          required: true
+          schema:
+            type : string
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+        '400':
+          description: Invalid name value
+        '404':
+          description: Room not found
+        '500':
+          description: Internal server error
+          
+  /rooms/{id}:
+    get:
+      tags:
+        - Room
+      summary: Find the specific room for that id
+      description: Allows you to view all information regarding this specific room
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific room
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Room not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Room
+      summary: Delete the specific room
+      description: Allows you to delete the specific room
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific room
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Room not found
+        '500':
+          description: Internal server error
+  
+  /rooms:
+    get:
+      tags:
+        - Room
+      summary: Find all rooms
+      description: Allows you to view all information regarding all rooms
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+        '404':
+          description: Rooms not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Room
+      summary: Create a new room
+      description: Allows you to create a new room
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Room
+      summary: Update the specific class
+      description:  Allows you to update the informations regarding this specific room
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '404':
+          description: Room not found
+        '500':
+          description: Internal server error
+  
+
+  /subjects/subject/{userId}:
+    get:
+      tags:
+        - Subject
+      summary: Find the specific subject for that code
+      description: Allows you to view all information regarding this specific subject
+      parameters:
+        - name: userId
+          in: path
+          description: Code of the specific subject
+          required: true
+          schema:
+            type : string
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subject'
+        '400':
+          description: Invalid name value
+        '404':
+          description: Subject not found
+        '500':
+          description: Internal server error
+          
+  /subjecs/{id}:
+    get:
+      tags:
+        - Subject
+      summary: Find the specific subject for that id
+      description: Allows you to view all information regarding this specific subject
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific subject
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subject'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Subject not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Subject
+      summary: Delete the specific subject
+      description: Allows you to delete the specific subject
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific subject
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '400':
+          description: Invalid id value
+        '404':
+          description: Subject not found
+        '500':
+          description: Internal server error
+  
+  /subjects:
+    get:
+      tags:
+        - Subject
+      summary: Find all subjects
+      description: Allows you to view all information regarding all subjects
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subject'
+        '404':
+          description: Subjects not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - Subject
+      summary: Create a new subject
+      description: Allows you to create a new subject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subject'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Subject
+      summary: Update the specific subject
+      description:  Allows you to update the informations regarding this specific subject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subject'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '404':
+          description: Subject not found
+        '500':
+          description: Internal server error
+
+
+  /users/{id}:
+    get:
+      tags:
+        - User
+      summary: Find the specific user for that id
+      description: Allows you to view all information regarding this specific user
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific user
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid id value
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - User
+      summary: Delete the specific user
+      description: Allows you to delete the specific user
+      parameters:
+        - name: id
+          in: path
+          description: Id of the specific user
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '400':
+          description: Invalid id value
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+  
+  /users:
+    get:
+      tags:
+        - User
+      summary: Find all users
+      description: Allows you to view all information regarding all users
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '404':
+          description: Users not found
+        '500':
+          description: Internal server error
+    post:
+      tags:
+        - User
+      summary: Create a new user
+      description: Allows you to create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - User
+      summary: Update the specific user
+      description:  Allows you to update the informations regarding this specific user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrueResponse'
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+          
+  
+          
+          
+  
+  
+  
+  
+components:
+  schemas:
+    Activity:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Corso di inglese B1
+    Booking:
+      type: object
+      required:
+        - id
+        - parentId
+        - start
+        - end
+        - classId
+        - subjectId
+        - roomId
+        - activityId
+      properties:
+        id:
+          type: integer
+          example: 1
+        parentId:
+          type: integer
+          example: 0
+        start:
+          type: string
+          example: "2024-05-22 09:00:00"
+        end:
+          type: string
+          example: "2024-05-22 10:00:00"
+        classId:
+          type: integer
+          example: 1
+        subjectId:
+          type: integer
+          example: 1
+        roomId:
+          type: integer
+          example: 1
+        activityId:
+          type: integer
+          example: 1
+    Class:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 5IA
+    TrueResponse:
+      type: object
+      required:
+        - code
+        - hasError
+        - message
+        - result
+      properties:
+        code:
+          type: integer
+          example: 200
+        hasError:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: null
+        result:
+          type: boolean
+          example: true
+    Room:
+      type: object
+      required:
+        - id
+        - name
+        - code
+        - building
+        - floor
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: "Laboratorio"
+        code:
+          type: string
+          example: "LAP1"
+        building:
+          type: string
+          example: "Triennio"
+        floot:
+          type: integer
+          format: int64
+          example: 1
+    Subject:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: "Informatica"
+    User:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - userType
+        - photo
+        - roleId
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        firstName:
+          type: string
+          example: "Marco"
+        lastName:
+          type: string
+          example: "Rossi"
+        email:
+          type: string
+          example: "marco.rossi@itiszuccante.edu.it"
+        useryTpe:
+          type: string
+          example: 'Student'
+        photo:
+          type: string
+          example: 'https://lh3.googleusercontent.com/a/ACg8ocIiHWc5BowQ3-NKch79XL8kTOlLuqYdtbQO3GgVr3eKZR4MyBWA=s96-c'
+        roleId:
+          type: integer
+          format: int64
+          example: 1
+    ViewBooking:
+      type: object
+      required:
+        - id
+        - bookingId
+        - userId
+        - start
+        - end
+        - class
+        - subject
+        - room
+        - activity
+      properties:
+        id:
+          type: integer
+          example: 1
+        bookingId:
+          type: integer
+          example: 0
+        userId:
+          type: integer
+          example: 0
+        start:
+          type: string
+          example: "2024-05-22 09:00:00"
+        end:
+          type: string
+          example: "2024-05-22 10:00:00"
+        class:
+          type: string
+          example: "5IA"
+        subject:
+          type: string
+          example: "Informatica"
+        room:
+          type: string
+          example: "Aula 9"
+        activity:
+          type: string
+          example: "Curriculare"
+
+  requestBodies:
+    Activity:
+      description: Activity object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Activity'
+    Booking:
+      description: Booking object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Booking'
+    Class:
+      description: Class object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Class'
+    TrueResponse:
+      description: TrueResponse object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TrueResponse'
+    Room:
+      description: Room object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Room'
+    Subject:
+      description: Subject object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Subject'
+    User:
+      description: Activity object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    ViewBooking:
+      description: ViewBooking object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ViewBooking'
